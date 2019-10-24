@@ -31,9 +31,8 @@ def get_indicies(player_list):
 def print_player_details(soup):
     for i, player_row in enumerate(soup):
         (name, position, team, touch_down) = get_indicies(player_row)
+        
         print(f'#{i+1} - {name} plays in {team} as a {position} and has scored {touch_down} touchdowns.')
-
-
 
 def main():
     nfl_url = 'http://www.cbssports.com/nfl/stats'
