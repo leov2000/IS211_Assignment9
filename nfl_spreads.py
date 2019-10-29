@@ -1,7 +1,7 @@
 import urllib.request as urllib
 from bs4 import BeautifulSoup
 import json
-import datetime
+from datetime import datetime
 
 def get_contents(url):
     """
@@ -37,6 +37,7 @@ def merge_tables(soup_list):
 
     Returns: A list of row items.
     """
+
     tr_result = [get_rows(table) for table in soup_list]
     flatten_result = [item for sublist in tr_result for item in sublist]
 
@@ -50,6 +51,7 @@ def get_rows(soup):
 
     Returns: A list of tr items.
     """
+
     return soup.find_all('tr')[1:]
 
 def get_td(soup):
@@ -60,16 +62,18 @@ def get_td(soup):
 
     Returns: A list of td items.
     """
+
     return soup.find_all('td')
 
 def get_indicies(team_list):
     """
-    A getter function that retrieves pertenant keys
+    A getter function that retrieves pertinent keys
 
     Parameters: team_list(list[str])
 
     Returns: A tuple of strings.
     """
+
     return (team_list[0].text, team_list[1].text, team_list[2].text, team_list[3].text)
 
 def print_rows(soup):
@@ -80,6 +84,7 @@ def print_rows(soup):
 
     Prints: a formatted string with the date, favorite, spread and under_dog
     """
+
     result = []
     for i, team_row in enumerate(soup):
         table_cells = get_td(team_row)
@@ -100,8 +105,9 @@ def write_results(result_list):
 
     Outputs: a formatted string with the results.
     """
-    now = datetime.datetime.now()
-    timestamp = datetime.datetime.timestamp(now)
+
+    now = datetime.now()
+    timestamp = datetime.timestamp(now)
 
     meta_dict = {
         'results': result_list,
@@ -113,6 +119,14 @@ def write_results(result_list):
 
 
 def main():
+    """
+    The main function that bootstraps the app.
+
+        Parameters: None
+
+        Returns: None
+    """
+
     nfl_url = 'http://www.footballlocks.com/nfl_point_spreads.shtml'
     nfl_main_contents = get_contents(nfl_url)
 
